@@ -1,0 +1,55 @@
+{
+    "name": "cognide",
+    "displayName": "CognIDE",
+    "description": "Biometric data integrator",
+    "version": "0.0.1",
+    "publisher": "'roger vieira'",
+    "engines": {
+        "vscode": "^1.26.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "title": "Enable CodeLens",
+                "command": "cognide.enableCodeLens",
+                "category": "CognIDE"
+            },
+            {
+                "title": "Disable Codelens",
+                "command": "cognide.disableCodeLens",
+                "category": "CognIDE"
+            }
+        ],
+        "configuration": {
+            "properties": {
+                "cognide.enableCodeLens": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "tslint -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "10.3.6",
+        "@types/vscode": "^1.26.0",
+        "tslint": "5.10.0",
+        "typescript": "2.9.2",
+        "vscode": "^1.1.21"
+    },
+    "dependencies": {
+        "node-fetch": "^2.6.0"
+    }
+}
