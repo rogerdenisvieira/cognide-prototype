@@ -1,0 +1,14 @@
+{
+  "name": "cognide_connector",
+  "version": "1.0.0",
+  "description": "CognIDE's EEG serial port connector",
+  "main": "cognide_connector.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roger  D. Vieira",
+  "license": "MIT",
+  "dependencies": {
+    "serialport": "^8.0.7"
+  }
+}

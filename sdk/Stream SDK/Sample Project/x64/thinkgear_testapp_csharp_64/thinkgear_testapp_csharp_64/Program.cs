@@ -14,12 +14,16 @@ namespace thinkgear_testapp_csharp_64
 
             NativeThinkgear thinkgear = new NativeThinkgear();
 
+
+            int connectionID = 0;
             /* Print driver version number */
             Console.WriteLine("Version: " + NativeThinkgear.TG_GetVersion());
 
+                connectionID = NativeThinkgear.TG_GetNewConnectionId();
+                Console.WriteLine("Connection ID: " + connectionID);
+           
             /* Get a connection ID handle to ThinkGear */
-            int connectionID = NativeThinkgear.TG_GetNewConnectionId();
-            Console.WriteLine("Connection ID: " + connectionID);
+
 
             if (connectionID < 0)
             {
@@ -47,11 +51,11 @@ namespace thinkgear_testapp_csharp_64
             }
 
             /* Attempt to connect the connection ID handle to serial port "COM5" */
-            string comPortName = "\\\\.\\COM40";
+            string comPortName = "COM3";
 
             errCode = NativeThinkgear.TG_Connect(connectionID,
                           comPortName,
-                          NativeThinkgear.Baudrate.TG_BAUD_57600,
+                          NativeThinkgear.Baudrate.TG_BAUD_9600,
                           NativeThinkgear.SerialDataFormat.TG_STREAM_PACKETS);
             if (errCode < 0)
             {
@@ -135,7 +139,7 @@ namespace thinkgear_testapp_csharp_64
             NativeThinkgear.TG_FreeConnection(connectionID);
 
             /* End program */
-            Console.ReadLine();
+           Console.ReadLine();
 
         }
     }

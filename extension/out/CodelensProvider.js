@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const fetch = require("node-fetch");
-const uri = 'http://localhost:3000/metrics';
+const URI = vscode.workspace.getConfiguration("cognide").get("server");
 /**
  * CodelensProvider
  */
@@ -46,16 +46,15 @@ class CodelensProvider {
     resolveCodeLens(codeLens, token) {
         return __awaiter(this, void 0, void 0, function* () {
             if (vscode.workspace.getConfiguration("cognide").get("enableCodeLens", true)) {
-                var response = yield fetch(uri);
+                var response = yield fetch(URI);
                 var metrics = yield response.json();
                 //console.log('Creating command...' + data(uri));
                 codeLens.command = {
-                    title: `Attention: ${metrics.attention} Meditation: ${metrics.meditation}`,
+                    title: `CognIDE Metrics [Attention: ${metrics.eSense.attention.toFixed(2)}%][Meditation: ${metrics.eSense.meditation.toFixed(2)}%]`,
                     tooltip: "More informations",
                     command: "cognide.codelensAction",
-                    arguments: ["Argument 1", false]
+                    arguments: [codeLens.range.start.line, metrics]
                 };
-                console.log('Returning CodeLens...');
                 return codeLens;
             }
             return null;

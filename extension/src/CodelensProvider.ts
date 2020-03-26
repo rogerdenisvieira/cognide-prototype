@@ -2,7 +2,8 @@ import * as vscode from 'vscode';
 import { url } from 'inspector';
 
 const fetch = require("node-fetch");
-const uri = 'http://localhost:3000/metrics';
+
+const URI = vscode.workspace.getConfiguration("cognide").get("server");
 
 
 /**
@@ -48,18 +49,19 @@ export class CodelensProvider implements vscode.CodeLensProvider {
         if (vscode.workspace.getConfiguration("cognide").get("enableCodeLens", true)) {
 
 
-            var response = await fetch(uri);
+            var response = await fetch(URI);
             var metrics = await response.json()
 
             //console.log('Creating command...' + data(uri));
             codeLens.command = {
-                title: `Attention: ${metrics.attention} Meditation: ${metrics.meditation}` ,
+                title: `CognIDE Metrics [Attention: ${metrics.eSense.attention.toFixed(2)}%][Meditation: ${metrics.eSense.meditation.toFixed(2)}%]` ,
                 tooltip: "More informations",
                 command: "cognide.codelensAction",
-                arguments: ["Argument 1", false]
+                arguments: [codeLens.range.start.line, metrics]
             };
+
             
-            console.log('Returning CodeLens...');
+            
             return codeLens;
         }
         return null;

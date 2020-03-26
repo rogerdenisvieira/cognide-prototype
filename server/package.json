@@ -1,0 +1,15 @@
+{
+  "name": "cognide_server",
+  "version": "1.0.0",
+  "description": "CognIDE's data server",
+  "main": "cognide_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roger D. Vieira",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "influx": "^5.5.1"
+  }
+}

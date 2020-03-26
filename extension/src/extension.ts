@@ -11,7 +11,7 @@ var disposables: Disposable[] = [];
 export function activate(context: ExtensionContext) {
     let codelensProvider = new CodelensProvider();
 
-    languages.registerCodeLensProvider("*", codelensProvider);
+    languages.registerCodeLensProvider({ scheme: 'file', language: 'csharp' }, codelensProvider);
 
     commands.registerCommand("cognide.enableCodeLens", () => {
         workspace.getConfiguration("cognide").update("enableCodeLens", true, true);
@@ -21,9 +21,16 @@ export function activate(context: ExtensionContext) {
         workspace.getConfiguration("cognide").update("enableCodeLens", false, true);
     });
 
-    commands.registerCommand("cognide.codelensAction", (args) => {
-        window.showInformationMessage(`CodeLens action clicked with args=${args}`);
-        console.log("I've clicked in a action");
+    commands.registerCommand("cognide.codelensAction", (line, metrics) => {
+
+
+        window.showInformationMessage(`Line: ${line} 
+        \nAttention: ${metrics.eSense.attention} 
+        \nMeditation: ${metrics.eSense.meditation}
+        \nPoorSignalLevel: ${metrics.poorSignalLevel}
+        \nStatus: ${metrics.status}` );
+        
+        console.log(line, metrics);
     });
 }
 

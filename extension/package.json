@@ -11,7 +11,7 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "onLanguage:csharp"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -32,6 +32,11 @@
                 "cognide.enableCodeLens": {
                     "type": "boolean",
                     "default": true
+                },
+                
+                "cognide.server": {
+                    "type" :"string",
+                    "default":"http://localhost:3000/metrics"
                 }
             }
         }
@@ -47,7 +52,7 @@
         "@types/vscode": "^1.26.0",
         "tslint": "5.10.0",
         "typescript": "2.9.2",
-        "vscode": "^1.1.21"
+        "vscode": "^1.1.36"
     },
     "dependencies": {
         "node-fetch": "^2.6.0"

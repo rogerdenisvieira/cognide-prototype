@@ -9,14 +9,23 @@ console.log('A request has been received.');
 
 app.get("/metrics", (req, res, next) => {
 
+        
+    attention =  ((Math.random() * 255) * 100 / 255).toFixed(2);
+
     var metrics = {
-        "attention": Math.random() * 100 ,
-        "meditation": Math.random() * 100,
-        "alpha": Math.random(),
-        "beta": Math.random(),
-        "gama":Math.random(),
-        "delta":Math.random(),
-        "theta":Math.random()
+
+        eSense: {
+
+            "attention": ((Math.random() * 255) * 100 / 255),
+            "meditation": ((Math.random() * 255) * 100 / 255)
+        },
+        eegPower: {
+            "alpha": Math.random(),
+            "beta": Math.random(),
+            "gama":Math.random(),
+            "delta":Math.random(),
+            "theta":Math.random()
+        }
     }
 
     console.log(`Sending response: ${JSON.stringify(metrics)}`)

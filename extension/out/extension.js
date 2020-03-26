@@ -9,16 +9,20 @@ const CodelensProvider_1 = require("./CodelensProvider");
 var disposables = [];
 function activate(context) {
     let codelensProvider = new CodelensProvider_1.CodelensProvider();
-    vscode_1.languages.registerCodeLensProvider("*", codelensProvider);
+    vscode_1.languages.registerCodeLensProvider({ scheme: 'file', language: 'csharp' }, codelensProvider);
     vscode_1.commands.registerCommand("cognide.enableCodeLens", () => {
         vscode_1.workspace.getConfiguration("cognide").update("enableCodeLens", true, true);
     });
     vscode_1.commands.registerCommand("cognide.disableCodeLens", () => {
         vscode_1.workspace.getConfiguration("cognide").update("enableCodeLens", false, true);
     });
-    vscode_1.commands.registerCommand("cognide.codelensAction", (args) => {
-        vscode_1.window.showInformationMessage(`CodeLens action clicked with args=${args}`);
-        console.log("I've clicked in a action");
+    vscode_1.commands.registerCommand("cognide.codelensAction", (line, metrics) => {
+        vscode_1.window.showInformationMessage(`Line: ${line} 
+        \nAttention: ${metrics.eSense.attention} 
+        \nMeditation: ${metrics.eSense.meditation}
+        \nPoorSignalLevel: ${metrics.poorSignalLevel}
+        \nStatus: ${metrics.status}`);
+        console.log(line, metrics);
     });
 }
 exports.activate = activate;
