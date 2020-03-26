@@ -6,10 +6,17 @@ var Influx = require('influx');
 
 const THINKGEAR_CONNECTOR_HOST = '127.0.0.1';
 const THINKGEAR_CONNECTOR_PORT = 13854;
+
+const INFLUX_HOST = '127.0.0.1';
+const INFLUX_PORT = '8086';
+const INFLUX_DATABASE = 'cognide';
+
 const HANDSHAKE = { appName: "CognIDE", appKey: "aSimpleKey" };
 const CONFIG = { enableRawOutput: false, format: "Json" };
 
+// ============================================ INFLUXDB ========================================== //
 
+const influxClient = new Influx.InfluxDB(`http://${INFLUX_HOST}:${INFLUX_PORT}/${INFLUX_DATABASE}`)
 
 // ========================================= COGNIDE SERVER ======================================== //
 
@@ -17,9 +24,6 @@ app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
 
-// ============================================ INFLUXDB ========================================== //
-
-const influx = new Influx.InfluxDB('http://:@host:8086/cognide')
 
 // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
 
@@ -55,6 +59,15 @@ client.on("data", rawData => {
 app.get("/metrics", (req, res, next) => {
     console.log(`${Date.now()} - received request from CognIDE Extension: ${req}`);
     res.send(sharedData);
+
+    console.log(`${Date.now()} - saving into InfluxDB.`)
+    influxClient.writePoints([
+        {
+          measurement: 'cognide',
+          tags: { artifact: 'helloWorld.cs', line: '1' },
+          fields: { attention: metrics.eSense.attention, meditation: metrics.eSense.meditation },
+        }
+      ]);
 });
 
 
