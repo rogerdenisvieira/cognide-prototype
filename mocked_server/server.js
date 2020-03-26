@@ -1,5 +1,12 @@
 var express = require("express");
 var app = express();
+var Influx = require('influx')
+
+// ============================================ INFLUXDB ========================================== //
+
+const influxClient = new Influx.InfluxDB('http://localhost:8086/cognide')
+
+// =============================================================================================== //
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
@@ -9,11 +16,7 @@ console.log('A request has been received.');
 
 app.get("/metrics", (req, res, next) => {
 
-        
-    attention =  ((Math.random() * 255) * 100 / 255).toFixed(2);
-
     var metrics = {
-
         eSense: {
 
             "attention": ((Math.random() * 255) * 100 / 255),
@@ -32,4 +35,15 @@ app.get("/metrics", (req, res, next) => {
 
     res.json(metrics);
 
+    console.log(`Saving into InfluxDB.`)
+    influxClient.writePoints([
+        {
+          measurement: 'cognide',
+          tags: { artifact: 'helloWorld.cs', line: '1' },
+          fields: { attention: metrics.eSense.attention, meditation: metrics.eSense.meditation },
+        }
+      ])
+
 });
+
+

@@ -19,7 +19,7 @@ app.listen(3000, () => {
 
 // ============================================ INFLUXDB ========================================== //
 
-
+const influx = new Influx.InfluxDB('http://:@host:8086/cognide')
 
 // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
 
