@@ -1,0 +1,11 @@
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\bin\Debug\netcoreapp3.0\CognIDE.Infrastructure.deps.json
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\bin\Debug\netcoreapp3.0\CognIDE.Infrastructure.dll
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\bin\Debug\netcoreapp3.0\CognIDE.Infrastructure.pdb
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.csprojAssemblyReference.cache
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.AssemblyInfo.cs
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.dll
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.pdb
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\bin\Debug\netcoreapp3.0\CognIDE.Domain.dll
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\bin\Debug\netcoreapp3.0\CognIDE.Domain.pdb
+C:\Users\Roger_V\Repositories\CognIDE\CognIDE\CognIDE.Infrastructure\obj\Debug\netcoreapp3.0\CognIDE.Infrastructure.csproj.CopyComplete

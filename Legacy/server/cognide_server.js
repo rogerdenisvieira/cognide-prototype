@@ -60,14 +60,19 @@ app.get("/metrics", (req, res, next) => {
     console.log(`${Date.now()} - received request from CognIDE Extension: ${req}`);
     res.send(sharedData);
 
-    console.log(`${Date.now()} - saving into InfluxDB.`)
-    influxClient.writePoints([
-        {
-          measurement: 'cognide',
-          tags: { artifact: 'helloWorld.cs', line: '1' },
-          fields: { attention: metrics.eSense.attention, meditation: metrics.eSense.meditation },
-        }
-      ]);
+    
+    if(sharedData.poorSignalLevel > 200){
+        console.log(`${Date.now()} - saving into InfluxDB.`)
+        influxClient.writePoints([
+            {
+              measurement: 'cognide',
+              tags: { artifact: 'helloWorld.cs', line: '1' },
+              fields: { attention: metrics.eSense.attention, meditation: metrics.eSense.meditation },
+            }
+          ]);
+    }
+    
+    
 });
 
 
