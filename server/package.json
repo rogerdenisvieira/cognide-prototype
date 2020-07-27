@@ -1,0 +1,31 @@
+{
+  "name": "cognide-prototype",
+  "version": "0.0.1",
+  "description": "CognIDE is a psychophysiological data integrator for Visual Studio Code",
+  "main": "out/server.js",
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.26",
+    "express": "^4.17.1",
+    "influx": "^5.6.0",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "ts-node-dev": "^1.0.0-pre.56"
+  },
+  "scripts": {
+    "dev:server": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogerdenisvieira/cognide-prototype.git"
+  },
+  "author": "Roger D. Vieira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rogerdenisvieira/cognide-prototype/issues"
+  },
+  "homepage": "https://github.com/rogerdenisvieira/cognide-prototype#readme"
+}
