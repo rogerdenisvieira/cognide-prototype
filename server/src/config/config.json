@@ -1,0 +1,9 @@
+{
+    "ThinkGear": {
+        "port": 13854,
+        "host": "127.0.0.1",
+        "appname": "CognIDE",
+        "format": "Json",
+        "appkey": "ASimpleKey"
+    }
+}

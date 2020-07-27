@@ -17,6 +17,7 @@ import { IRecorder } from "./recorder/IRecorder";
 import { InfluxDBRecorder } from "./recorder/InfluxDB/InfluxDBRecorder";
 import { MetricEntity } from "./recorder/MetricEntity";
 import { IMetricEntity } from "./recorder/IMetricEntity";
+import { IMetricRequest } from "./dto/MetricRequest";
 
 var adapter: IAdapter = new ThinkGearAdapter();
 var recorder: IRecorder = new InfluxDBRecorder();
@@ -31,7 +32,7 @@ app.listen(3000, () => {
 // =================================  CLIENT REQUESTS  ============================== //
 
 // http://localhost:3000/metrics?clientId=123&artifactName=helloWorld.js&lineNumber=24
-app.get("/metrics", (req: { query: { clientId: String; artifactName: String; lineNumber: Number; }; }, res: { send: (arg0: string) => void; }, next: any) => {
+app.get("/metrics", (req: IMetricRequest, res: { send: (arg0: string) => void; }, next: any) => {
 
     console.info(`${Date.now()} - received request from CognIDE Extension: ${req}`);
 
@@ -40,9 +41,9 @@ app.get("/metrics", (req: { query: { clientId: String; artifactName: String; lin
     console.debug(`Retrieved from adapter: ${measurement}`);
 
     var metric: IMetricEntity = new MetricEntity(
-        req.query.clientId,
-        req.query.artifactName,
-        req.query.lineNumber,
+        req.clientId,
+        req.artifactName,
+        req.lineNumber,
         measurement.attention,
         measurement.meditation
     );

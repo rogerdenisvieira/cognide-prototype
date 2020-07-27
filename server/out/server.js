@@ -7,31 +7,26 @@ var express = require("express");
 var app = express();
 var client = new net.Socket();
 var Influx = require('influx');
-var ThinkGearAdapter_1 = require("./adapter/ThinkGearAdapter");
+var ThinkGearAdapter_1 = require("./adapter/ThinkGear/ThinkGearAdapter");
+var InfluxDBRecorder_1 = require("./recorder/InfluxDB/InfluxDBRecorder");
+var MetricEntity_1 = require("./recorder/MetricEntity");
 var adapter = new ThinkGearAdapter_1.ThinkGearAdapter();
+var recorder = new InfluxDBRecorder_1.InfluxDBRecorder();
 // ========================================= COGNIDE SERVER ======================================== //
 app.listen(3000, function () {
     console.log("Server running on port 3000");
 });
-// ============================================ INFLUXDB ========================================== //
-var influx = new Influx.InfluxDB('http://:@host:8086/cognide');
 // =================================  CLIENT REQUESTS  ============================== //
-var sharedData = "";
+// http://localhost:3000/metrics?clientId=123&artifactName=helloWorld.js&lineNumber=24
 app.get("/metrics", function (req, res, next) {
-    console.log(Date.now() + " - received request from CognIDE Extension: " + req);
-    console.log("Retrieved from adapter: " + adapter.getMetrics());
-    res.send(sharedData);
-    if (sharedData.poorSignalLevel > 200) {
-        console.log(Date.now() + " - saving into InfluxDB.");
-        influxClient.writePoints([
-            {
-                measurement: 'cognide',
-                tags: { artifact: 'helloWorld.cs', line: '1' },
-                fields: { attention: metrics.eSense.attention, meditation: metrics.eSense.meditation },
-            }
-        ]);
-    }
+    console.info(Date.now() + " - received request from CognIDE Extension: " + req);
+    var measurement = adapter.getMetrics();
+    console.debug("Retrieved from adapter: " + measurement);
+    var metric = new MetricEntity_1.MetricEntity(req.query.clientId, req.query.artifactName, req.query.lineNumber, measurement.attention, measurement.meditation);
+    recorder.Save(metric);
+    res.send(JSON.stringify(measurement));
 });
 client.on("close", function () {
     console.log(Date.now() + " - Disconnected");
 });
+//# sourceMappingURL=server.js.map

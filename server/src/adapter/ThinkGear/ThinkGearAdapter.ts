@@ -2,9 +2,17 @@ import { IAdapter } from "../IAdapter"
 import { IMeasurement } from "../../models/IMeasurement";
 import { Socket } from "net"
 import { MeasurementModel } from "../../models/MeasurementModel";
+import { IConfig } from "../../config/IConfig";
+
+
+
+
 
 export class ThinkGearAdapter implements IAdapter {
 
+    
+
+    readonly config: IConfig = require('../../config/IConfig')
 
     readonly THINKGEAR_CONNECTOR_HOST = '127.0.0.1';
     readonly THINKGEAR_CONNECTOR_PORT = 13854;
@@ -12,17 +20,19 @@ export class ThinkGearAdapter implements IAdapter {
     readonly CONFIG = { enableRawOutput: false, format: "Json" };
     readonly client: Socket;
 
+    
+
     public constructor() {
         this.client = new Socket();
 
         // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
 
-        this.client.connect(this.THINKGEAR_CONNECTOR_PORT, this.THINKGEAR_CONNECTOR_HOST, () => {
+        this.client.connect(this.config.ThinkGear.Port, this.config.ThinkGear.Host, () => {
 
             var config = JSON.stringify(this.CONFIG);
             var handshake = JSON.stringify(this.HANDSHAKE);
 
-            console.log(`Connected to ${this.THINKGEAR_CONNECTOR_HOST}:${this.THINKGEAR_CONNECTOR_PORT}.`);
+            console.log(`Connected to ${this.config.ThinkGear.Host}:${this.config.ThinkGear.Port}.`);
 
             console.debug(`Sending handshake message: ${handshake}`)
             this.client.write(config);
