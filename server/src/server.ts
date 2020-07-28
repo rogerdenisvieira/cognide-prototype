@@ -51,6 +51,7 @@ app.get("/metrics", (req: IMetricRequest, res: { send: (arg0: string) => void; }
     recorder.Save(metric);
     res.send(JSON.stringify(measurement));
     
+    
 });
 
 

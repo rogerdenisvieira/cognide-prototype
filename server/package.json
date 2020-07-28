@@ -11,12 +11,13 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4",
-    "ts-node-dev": "^1.0.0-pre.56"
+    "nodemon": "^2.0.4"
   },
   "scripts": {
-    "dev:server": "ts-node-dev --respawn --transpile-only ./src/server.ts",
-    "build": "tsc"
+    "dev:debug": "nodemon --inspect src/server.ts",
+    "dev:start": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node ./out/server.js"
   },
   "repository": {
     "type": "git",

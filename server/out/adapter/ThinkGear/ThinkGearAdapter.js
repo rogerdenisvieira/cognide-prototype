@@ -5,23 +5,28 @@ var net_1 = require("net");
 var MeasurementModel_1 = require("../../models/MeasurementModel");
 var ThinkGearAdapter = /** @class */ (function () {
     function ThinkGearAdapter() {
-        var _this = this;
-        this.config = require('../../config/IConfig');
+        // readonly config: IConfig = require('../../config/config.json')
+        // console.log(config);
         this.THINKGEAR_CONNECTOR_HOST = '127.0.0.1';
         this.THINKGEAR_CONNECTOR_PORT = 13854;
         this.HANDSHAKE = { appName: "CognIDE", appKey: "aSimpleKey" };
         this.CONFIG = { enableRawOutput: false, format: "Json" };
         this.client = new net_1.Socket();
         // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
-        this.client.connect(this.config.ThinkGear.Port, this.config.ThinkGear.Host, function () {
-            var config = JSON.stringify(_this.CONFIG);
-            var handshake = JSON.stringify(_this.HANDSHAKE);
-            console.log("Connected to " + _this.config.ThinkGear.Host + ":" + _this.config.ThinkGear.Port + ".");
-            console.debug("Sending handshake message: " + handshake);
-            _this.client.write(config);
-            console.debug("Sending config message: " + config);
-            _this.client.write(config);
-        });
+        // try {
+        //     this.client.connect(this.THINKGEAR_CONNECTOR_PORT, this.THINKGEAR_CONNECTOR_HOST, () => {
+        //         var config = JSON.stringify(this.CONFIG);
+        //         var handshake = JSON.stringify(this.HANDSHAKE);
+        //         console.log(`Connected to ${this.THINKGEAR_CONNECTOR_HOST}:${this.THINKGEAR_CONNECTOR_PORT}.`);
+        //         console.debug(`Sending handshake message: ${handshake}`)
+        //         this.client.write(config);
+        //         console.debug(`Sending config message: ${config}`)
+        //         this.client.write(config);
+        //     });
+        // } catch (error) {
+        //     console.error(error);
+        //     this.client.destroy;
+        // }
     }
     ThinkGearAdapter.prototype.getMetrics = function () {
         var _a;

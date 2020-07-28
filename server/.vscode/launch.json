@@ -3,19 +3,22 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [      
+        {
+            "name": "Attach to CognIDE Server",
+            "port": 9229,
+            "request": "attach",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app/",
+            "type": "node"
+        },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/server/src/server.ts",
-            "outFiles": [
-				"${workspaceFolder}/out/**/*.js"
-            ]
+            "name": "Launch CognIDE Server",
+            "program": "${workspaceFolder}/src/server.ts",
+            "preLaunchTask": "tsc: build - tsconfig.json",         
+            "outFiles": ["${workspaceFolder}/out/**/*.js"]
         }
     ]
 }

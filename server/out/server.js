@@ -22,7 +22,7 @@ app.get("/metrics", function (req, res, next) {
     console.info(Date.now() + " - received request from CognIDE Extension: " + req);
     var measurement = adapter.getMetrics();
     console.debug("Retrieved from adapter: " + measurement);
-    var metric = new MetricEntity_1.MetricEntity(req.query.clientId, req.query.artifactName, req.query.lineNumber, measurement.attention, measurement.meditation);
+    var metric = new MetricEntity_1.MetricEntity(req.clientId, req.artifactName, req.lineNumber, measurement.attention, measurement.meditation);
     recorder.Save(metric);
     res.send(JSON.stringify(measurement));
 });

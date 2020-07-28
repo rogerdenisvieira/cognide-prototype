@@ -10,9 +10,11 @@ import { IConfig } from "../../config/IConfig";
 
 export class ThinkGearAdapter implements IAdapter {
 
-    
 
-    readonly config: IConfig = require('../../config/IConfig')
+
+    // readonly config: IConfig = require('../../config/config.json')
+
+    // console.log(config);
 
     readonly THINKGEAR_CONNECTOR_HOST = '127.0.0.1';
     readonly THINKGEAR_CONNECTOR_PORT = 13854;
@@ -20,26 +22,34 @@ export class ThinkGearAdapter implements IAdapter {
     readonly CONFIG = { enableRawOutput: false, format: "Json" };
     readonly client: Socket;
 
-    
+
 
     public constructor() {
         this.client = new Socket();
 
         // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
 
-        this.client.connect(this.config.ThinkGear.Port, this.config.ThinkGear.Host, () => {
+        try {
 
-            var config = JSON.stringify(this.CONFIG);
-            var handshake = JSON.stringify(this.HANDSHAKE);
+            this.client.connect(this.THINKGEAR_CONNECTOR_PORT, this.THINKGEAR_CONNECTOR_HOST, () => {
 
-            console.log(`Connected to ${this.config.ThinkGear.Host}:${this.config.ThinkGear.Port}.`);
+                var config = JSON.stringify(this.CONFIG);
+                var handshake = JSON.stringify(this.HANDSHAKE);
 
-            console.debug(`Sending handshake message: ${handshake}`)
-            this.client.write(config);
+                console.log(`Connected to ${this.THINKGEAR_CONNECTOR_HOST}:${this.THINKGEAR_CONNECTOR_PORT}.`);
 
-            console.debug(`Sending config message: ${config}`)
-            this.client.write(config);
-        });
+                console.debug(`Sending handshake message: ${handshake}`)
+                this.client.write(config);
+
+                console.debug(`Sending config message: ${config}`)
+                this.client.write(config);
+            });
+        } catch (error) {
+            console.error(error);
+            this.client.destroy;
+        }
+ 
+
 
     }
 
@@ -55,14 +65,14 @@ export class ThinkGearAdapter implements IAdapter {
 
         console.log(`Received data from ThinkGear:` + readData);
 
-        
+
 
         // this.client.on("data", (rawData: string) => {
         //     console.log(`${Date.now()} - ThinkGear Connector raw data: ${rawData}`);
         //     //console.log(`RECEIVED: Poor Signal Level: ${data.poorSignalLevel} Status: ${data.status}`);
-        
+
         //     sharedData = JSON.parse(rawData);
-        
+
         // });
 
         return new MeasurementModel(12, 60);
