@@ -1,4 +1,4 @@
-import { IMetricEntity } from './IMetricEntity'
+import { IMetricEntity } from '../entity/IMetricEntity'
 
 export interface IRecorder {
     Save(metricEntity: IMetricEntity): Boolean;

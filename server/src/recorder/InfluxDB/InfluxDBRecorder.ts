@@ -1,7 +1,6 @@
 import { InfluxDB, IPoint, FieldType } from 'influx'
 import { IRecorder } from '../IRecorder'
-import { InfluxDBEntity } from './InfluxDBEntity'
-import { IMetricEntity } from '../IMetricEntity'
+import { IMetricEntity } from '../../entity/IMetricEntity'
 
 
 export class InfluxDBRecorder implements IRecorder {

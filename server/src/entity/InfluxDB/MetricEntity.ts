@@ -1,4 +1,4 @@
-import { IMetricEntity } from "./IMetricEntity";
+import { IMetricEntity } from "../IMetricEntity";
 
 export class MetricEntity implements IMetricEntity {
     
@@ -18,15 +18,6 @@ export class MetricEntity implements IMetricEntity {
         this.Attention = attention;
         this.Meditation = meditation;
     }
-
-
-
-
-    
-
-
-
-
 }
 
 
