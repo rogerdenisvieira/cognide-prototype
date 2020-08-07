@@ -1,4 +1,4 @@
 export interface IMeasurement{
-    attention: Number,
-    meditation: Number
+    attention: number,
+    meditation: number
 }

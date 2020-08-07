@@ -1,9 +1,3 @@
-// var message: string = "Hello World";
-
-
-// console.log(`Message: ${message}`);
-
-
 var net = require('net')
 var express = require("express");
 var app = express();
@@ -18,8 +12,10 @@ import { InfluxDBRecorder } from "./recorder/InfluxDB/InfluxDBRecorder";
 import { MetricEntity } from "./recorder/MetricEntity";
 import { IMetricEntity } from "./recorder/IMetricEntity";
 import { IMetricRequest } from "./dto/MetricRequest";
+import { MockedAdapter } from "./adapter/MockedAdapter";
 
-var adapter: IAdapter = new ThinkGearAdapter();
+// var adapter: IAdapter = new ThinkGearAdapter(); 
+var adapter: IAdapter = new MockedAdapter();
 var recorder: IRecorder = new InfluxDBRecorder();
 
 
@@ -32,29 +28,27 @@ app.listen(3000, () => {
 // =================================  CLIENT REQUESTS  ============================== //
 
 // http://localhost:3000/metrics?clientId=123&artifactName=helloWorld.js&lineNumber=24
-app.get("/metrics", (req: IMetricRequest, res: { send: (arg0: string) => void; }, next: any) => {
+app.get("/metrics", (req: any, res: any, next: any) => {
 
-    console.info(`${Date.now()} - received request from CognIDE Extension: ${req}`);
-
+    var request: IMetricRequest = req.query;
+    console.info(`Received request from CognIDE Extension: ${JSON.stringify(request)}`);
 
     var measurement: IMeasurement = adapter.getMetrics();
     console.debug(`Retrieved from adapter: ${measurement}`);
 
     var metric: IMetricEntity = new MetricEntity(
-        req.clientId,
-        req.artifactName,
-        req.lineNumber,
+        request.clientId,
+        request.artifactName,
+        request.lineNumber,
         measurement.attention,
         measurement.meditation
     );
 
     recorder.Save(metric);
     res.send(JSON.stringify(measurement));
-    
-    
+
+
 });
-
-
 
 client.on("close", () => {
     console.log(`${Date.now()} - Disconnected`);

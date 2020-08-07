@@ -2,16 +2,16 @@ import { IMetricEntity } from "./IMetricEntity";
 
 export class MetricEntity implements IMetricEntity {
     
-    ClientId: String;
-    ArtifactName: String;
-    LineNumber: Number;
-    Attention: Number;
-    Meditation: Number;
+    ClientId: string;
+    ArtifactName: string;
+    LineNumber: number;
+    Attention: number;
+    Meditation: number;
 
     /**
      *
      */
-    constructor(clientId: String, artifactName: String, lineNumber: Number, attention: Number, meditation: Number) {
+    constructor(clientId: string, artifactName: string, lineNumber: number, attention: number, meditation: number) {
         this.ClientId = clientId;
         this.ArtifactName = artifactName;
         this.LineNumber = lineNumber;

@@ -8,8 +8,8 @@
             "name": "Attach to CognIDE Server",
             "port": 9229,
             "request": "attach",
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/app/",
+            "localRoot": "${workspaceFolder}",          
+            "protocol": "auto",
             "type": "node"
         },
         {

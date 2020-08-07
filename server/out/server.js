@@ -19,10 +19,11 @@ app.listen(3000, function () {
 // =================================  CLIENT REQUESTS  ============================== //
 // http://localhost:3000/metrics?clientId=123&artifactName=helloWorld.js&lineNumber=24
 app.get("/metrics", function (req, res, next) {
-    console.info(Date.now() + " - received request from CognIDE Extension: " + req);
+    var request = req.query;
+    console.info("Received request from CognIDE Extension: " + JSON.stringify(request));
     var measurement = adapter.getMetrics();
     console.debug("Retrieved from adapter: " + measurement);
-    var metric = new MetricEntity_1.MetricEntity(req.clientId, req.artifactName, req.lineNumber, measurement.attention, measurement.meditation);
+    var metric = new MetricEntity_1.MetricEntity(request.clientId, request.artifactName, request.lineNumber, measurement.attention, measurement.meditation);
     recorder.Save(metric);
     res.send(JSON.stringify(measurement));
 });

@@ -1,7 +1,7 @@
 import { IAdapter } from "../IAdapter"
 import { IMeasurement } from "../../models/IMeasurement";
 import { Socket } from "net"
-import { MeasurementModel } from "../../models/MeasurementModel";
+import { Measurement } from "../../models/Measurement";
 import { IConfig } from "../../config/IConfig";
 
 
@@ -10,12 +10,7 @@ import { IConfig } from "../../config/IConfig";
 
 export class ThinkGearAdapter implements IAdapter {
 
-
-
     // readonly config: IConfig = require('../../config/config.json')
-
-    // console.log(config);
-
     readonly THINKGEAR_CONNECTOR_HOST = '127.0.0.1';
     readonly THINKGEAR_CONNECTOR_PORT = 13854;
     readonly HANDSHAKE = { appName: "CognIDE", appKey: "aSimpleKey" };
@@ -27,11 +22,11 @@ export class ThinkGearAdapter implements IAdapter {
     public constructor() {
         this.client = new Socket();
 
-        // ==============================  THINKGEAR CONNECTOR COMMUNICATION ============================== //
-
         try {
-
+            // console.log(this.config);
             this.client.connect(this.THINKGEAR_CONNECTOR_PORT, this.THINKGEAR_CONNECTOR_HOST, () => {
+
+
 
                 var config = JSON.stringify(this.CONFIG);
                 var handshake = JSON.stringify(this.HANDSHAKE);
@@ -63,19 +58,19 @@ export class ThinkGearAdapter implements IAdapter {
         this.client.setTimeout(10000);
         var readData: string = this.client?.read();
 
-        console.log(`Received data from ThinkGear:` + readData);
+        console.log(`Received data from ThinkGear: ${readData}`);
 
 
 
-        // this.client.on("data", (rawData: string) => {
-        //     console.log(`${Date.now()} - ThinkGear Connector raw data: ${rawData}`);
-        //     //console.log(`RECEIVED: Poor Signal Level: ${data.poorSignalLevel} Status: ${data.status}`);
+        this.client.on("data", (rawData: string) => {
+            console.log(`${Date.now()} - ThinkGear Connector raw data: ${rawData}`);
+            //console.log(`RECEIVED: Poor Signal Level: ${data.poorSignalLevel} Status: ${data.status}`);
 
-        //     sharedData = JSON.parse(rawData);
+            sharedData = JSON.parse(rawData);
 
-        // });
+        });
 
-        return new MeasurementModel(12, 60);
+  
 
     }
 }
