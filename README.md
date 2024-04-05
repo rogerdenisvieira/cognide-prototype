@@ -2,11 +2,19 @@
 Biometric data integrator extension and server developed for Visual Studio Code
 
 
-# Running
+## Building 
 
-## CognIDE Server
+To work properly, both projects must be compiled before they are run. Note that the root folder has two subfolders: `extension` and `server`, each of which represents a project and must be compiled individually. To do this, you need to be positioned **inside** the folder of the project you want to compile and run the following command:
 
-There are two distinc ways to run the CognIDE Server: in debug context and production-like context. For both, the current working directory must be in the `./server` folder.
+```bash
+npm build
+```
+
+Once compiled, each project will produce its artifacts in each of its directory.
+
+## Running CognIDE Server
+
+There are two distinc ways to run the CognIDE Server: in debug context and production-like context. For both, the current working directory must be in the `server` folder.
 
 ### Running in debug mode
 
@@ -39,7 +47,7 @@ npm run start
 ```
 
 
-## CognIDE Extension
+## Running CognIDE Extension
 
 The CognIDE Extensions works under the *extension.ts* file. Open it and type `F5` to open a new **Extension Development Host** instance.
 
